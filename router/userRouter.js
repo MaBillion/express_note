@@ -1,13 +1,17 @@
 let express = require('express');
+let bodyParser = require('body-parser');
 let router = express.Router();
+let fs = require('fs');
 
-router.get('/add', (req, res) => {
-    console.log(req)
-    res.send('add')
+router.get('/login', async (req, res) => {
+    await fs.readFile('./public/bbb.jpeg', (err, data) => {
+        res.set({'content-type': 'image/jpeg'});
+        res.send(data)
+    });
 });
 
-router.get('/del', (req, res) => {
-    console.log(res)
+router.post('/register', (req, res) => {
+    console.log(req.body)
     res.send('del')
 });
 
