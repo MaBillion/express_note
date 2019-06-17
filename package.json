@@ -1,0 +1,13 @@
+{
+  "name": "node_demo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "chao.ma <chao.ma@brilliantaero.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
