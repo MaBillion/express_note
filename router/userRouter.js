@@ -1,21 +1,39 @@
 let express = require('express');
-let bodyParser = require('body-parser');
 let router = express.Router();
-let fs = require('fs');
-let { _readFile } = require('../tools/tools.js');
+let user = require('../db/userModel.js');
 
-router.get('/login', async (req, res) => {
-    await fs.readFile('./public/bbb.jpeg', (err, data) => {
-        res.set({'content-type': 'image/jpeg'});
-        res.send(data)
-    });
+router.post('/login', (req, res) => {
+    let {userName, passWord} = req.body;
+    if (!userName || !passWord) return res.send({err: -1, msg: '用户名或密码错误'})
+
+    user.find({userName, passWord}).then(data => {
+        if (data.length > 0) {
+            return res.send({err: 0, msg: '登录成功'})
+        } else {
+            return res.send({err: -1, msg: '用户名或密码错误'})
+        }
+    }).catch(err => {
+        return res.send({err: -1, msg: '用户名或密码错误'})
+    })
 });
 
-router.post('/register', (req, res) => {
-    _readFile('./public/hello.html').then(data => {
-        res.send(data)
-    }).catch(err => {
-        throw err
+router.post('/register', async (req, res) => {
+    let {userName, passWord} = req.body;
+    if (!userName || !passWord) return res.send({err: -1, msg: '数据错误'})
+
+    await user.find({userName}).then(data => {
+        if (data.length > 0) {
+            return res.send({err: -2, msg: '该账号已被注册'})
+        } else {
+            user.insertMany({
+                userName,
+                passWord
+            }).then(data => {
+                return res.send({err: 0, msg: '注册成功'})
+            }).catch(err => {
+                return res.send({err: 100, msg: '请稍后再试'})
+            })
+        }
     })
 });
 

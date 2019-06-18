@@ -5,8 +5,7 @@
   "author": "chao.ma <chao.ma@brilliantaero.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node app.js",
-    "mongo": "node db.js"
+    "start": "node app.js"
   },
   "dependencies": {
     "express": "^4.17.1",
