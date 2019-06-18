@@ -5,9 +5,11 @@
   "author": "chao.ma <chao.ma@brilliantaero.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "mongo": "node db.js"
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongoose": "^5.6.0"
   }
 }
