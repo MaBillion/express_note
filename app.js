@@ -1,6 +1,7 @@
 let express = require('express');
 let bodyParser = require('body-parser');
 let userRouter = require('./router/userRouter');
+let fileRouter = require('./router/fileRouter');
 let path = require('path');
 let db = require('./db/connect.js');
 
@@ -20,6 +21,7 @@ app.use('/public', express.static(path.join(__dirname, './public')));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use('/user', userRouter);
+app.use('/upload', fileRouter);
 
 
 app.listen('3001', () => {
